@@ -5,6 +5,7 @@
 #include <bitset>
 #include <random>
 #include <locale.h>
+#include <Windows.h>
 
 #define Length 10
 
@@ -23,21 +24,24 @@ vector<bitset<32>> generate(vector<bitset<32>> bitVector)
 	for (int i = 0; i < Length; i++)
 	{
 		bitVector.push_back(gen());
-		cout << "BIN: " << bitVector.back() <<
-			"\tHEX: " << hex << (int)bitVector.back().to_ulong() << 
-			"\tDEC: " << dec << (int)bitVector.back().to_ulong() << endl;
 	}
 	return bitVector;
 }
 
-void output(vector<bitset<32>> bitVector)
-{	
+void output(vector<bitset<32>> bitVector, bitset<32> min, bitset<32> max)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (auto i = bitVector.begin(); i < bitVector.end(); i++)
-	{				
+	{
+		if (*i == min || *i == max)
+			SetConsoleTextAttribute(hConsole, 12);
+		else
+			SetConsoleTextAttribute(hConsole, 7);
 		cout << "BIN: " << *i <<
 			"\tHEX: " << hex << (int)(*i).to_ulong() <<
 			"\tDEC: " << dec << (int)(*i).to_ulong() << endl;
 	}
+	SetConsoleTextAttribute(hConsole, 7);
 }
 
 int main()
@@ -52,6 +56,8 @@ int main()
 		auto min = min_element(bitVector.begin(), bitVector.end(), bitComp);
 		auto max = max_element(bitVector.begin(), bitVector.end(), bitComp);
 
+		output(bitVector, *min, *max);
+
 		cout << endl;
 		cout << "MIN BIN: " << *min <<
 			"\tHEX: " << hex << (int)(*min).to_ulong() <<
@@ -63,10 +69,10 @@ int main()
 
 		swap(bitVector[distance(bitVector.begin(), min)], bitVector[distance(bitVector.begin(), max)]);
 
-		output(bitVector);
+		output(bitVector, *min, *max);
 	}
-	catch(int i)
+	catch (int i)
 	{
-		cout << "Ошибка " << i << "- в векторе нет элементов. Значение Lenght должно быть не менее 1."<<endl;
+		cout << "Ошибка " << i << "- в векторе нет элементов. Значение Lenght должно быть не менее 1." << endl;
 	}
 }
