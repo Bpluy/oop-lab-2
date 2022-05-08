@@ -1,0 +1,30 @@
+﻿@model IEnumerable<_3.Models.Car>
+@{
+    ViewData["Title"] = "Каталог авто";
+}
+<!DOCTYPE html>
+ 
+<html>
+<body>
+    <h3>Смартфоны</h3>
+    <table class="table-condensed">
+        <tr>
+            <td>Бренд</td>
+            <td>Модель</td>
+            <td>Мощность</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        @foreach (var car in Model)
+            {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Name</td>
+                <td>@car.Power</td>
+                <td>@car.Price</td>
+                <td><a href="~/Home/Buy/@car.Id">Купить</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
