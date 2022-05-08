@@ -20,7 +20,7 @@ namespace _3
                     new Car
                     {
                         Brand = "Mercedes",
-                        Name = "C180 AT",
+                        Name = "C180",
                         Power = 150,
                         Price = 2649800
                     },
@@ -31,6 +31,13 @@ namespace _3
                         Power = 106,
                         Price = 670000
                     },
+                    new Car
+                    {
+                        Brand = "BMW",
+                        Name = "540i",
+                        Power = 340,
+                        Price = 8100000
+                    },                    
                     new Car
                     {
                         Brand = "LADA",
